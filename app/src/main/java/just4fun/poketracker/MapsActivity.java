@@ -33,6 +33,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.LocationListener;
 
+import java.util.Date;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleMap.OnMapClickListener {
     private ProgressDialog dialog;
     private GoogleMap mMap;
@@ -140,8 +142,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onResponse(Bitmap response) {
                 LatLng markerLocation = new LatLng(pokemon.latitude, pokemon.longitude);
+                Date date=new Date(pokemon.expiration_time);
                 mMap.addMarker(new MarkerOptions().position(markerLocation)
                         .title("Pokemon id : " + pokemon.pokemonId)
+                        .snippet("expired : " + date.toString())
                         .icon(BitmapDescriptorFactory.fromBitmap(response)));
             }
         }, 0, 0, null,
